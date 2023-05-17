@@ -23,7 +23,7 @@ public class MustAddCorrectMoneyWhenCookiesAreSold extends BaseUITestCase {
     @Test(groups = {TestGroups.AIRELOGIC}, description = "MustAddCorrectMoneyWhenCookiesAreSold")
     public void mustAddCorrectMoneyWhenCookiesAreSold() {
 
-        GamePage gamePage = new MainPage().enterName().clickStartButton();
+        GamePage gamePage = new MainPage().openMainPage().enterName().clickStartButton();
 
         IntStream.range(0, 5).forEach(i -> gamePage.clickCookieButton());
 

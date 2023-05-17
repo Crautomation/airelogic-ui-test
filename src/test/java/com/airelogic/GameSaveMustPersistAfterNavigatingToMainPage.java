@@ -17,6 +17,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GameSaveMustPersistAfterNavigatingToMainPage extends BaseUITestCase {
+
     @Severity(SeverityLevel.CRITICAL)
     @Feature(TestFeatures.TEST_PASSED_FEATURE)
     @Description("GameSaveMustPersistAfterNavigatingToMainPage")
@@ -24,20 +25,17 @@ public class GameSaveMustPersistAfterNavigatingToMainPage extends BaseUITestCase
             "back to the main page.")
     public void gameSaveMustPersistAfterNavigatingToMainPage() {
 
-        MainPage mainPage = new MainPage().enterName();
+        MainPage mainPage = new MainPage().openMainPage().enterName();
         String currentName = mainPage.getName();
         GamePage gamePage = mainPage.clickStartButton();
 
         IntStream.range(0, 5).forEach(i -> gamePage.clickCookieButton());
 
         int expectedScore = gamePage.getCookieAmount();
-        System.out.println(expectedScore);
-
         mainPage = gamePage.clickMainPageButton();
 
         // Validates the row is here for this user and captures the current score
         int score = Integer.parseInt(mainPage.returnScore(currentName));
-        System.out.println(score);
 
         assertThat("User doesn't seem to be present or the score mismatches what's expected",
                 expectedScore,

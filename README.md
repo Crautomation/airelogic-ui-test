@@ -131,7 +131,10 @@ Accessibility Testing
 - Validate main colour combinations have a minimum of AA rating in the tool
 
 Load Testing
-- Utilising tooling such as JMeter or Gatling, test the site under extreme load for performance issues.  
+- Utilising tooling such as JMeter or Gatling, test the site under extreme load for performance issues. 
+
+Security 
+- I would want to further test things such as SQL/JS injection with someone more proficient in that area. 
 
 ### Bugs Found
 1. The score continues even when outside the game screen.
@@ -142,4 +145,6 @@ Load Testing
 6. You can enter, and it accepts special characters in the input boxes within the game
 7. Cookies don't seem to add consistently when you have multiple factories. For example with 10 factories it will go up 
 by 9/10/11 randomly. Could be just a display/lag issue.
+8. You can brute force a game start with the URL
+9. You can add sell minus cookies (which adds to the cookie amount)
 

@@ -25,7 +25,7 @@ public class MustNotAllowGameToStartWithNameAlreadyPresent extends BaseUITestCas
     @Test(groups = {TestGroups.AIRELOGIC}, description = "MustNotAllowGameToStartWithNameAlreadyPresent")
     public void mustNotAllowGameToStartWithNameAlreadyPresent() {
 
-        MainPage mainPage = new MainPage().enterName();
+        MainPage mainPage = new MainPage().openMainPage().enterName();
         String currentName = mainPage.getName();
         GamePage gamePage = mainPage.clickStartButton();
 

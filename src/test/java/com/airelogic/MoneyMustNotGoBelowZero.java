@@ -23,7 +23,7 @@ public class MoneyMustNotGoBelowZero extends BaseUITestCase {
     @Test(groups = {TestGroups.AIRELOGIC}, description = "MoneyMustNotGoBelowZero")
     public void moneyMustNotGoBelowZero() {
 
-        GamePage gamePage = new MainPage().enterName().clickStartButton();
+        GamePage gamePage = new MainPage().openMainPage().enterName().clickStartButton();
 
         // Confirms the current money value is 0.
         assertThat("The money value is not what is expected",
@@ -32,7 +32,6 @@ public class MoneyMustNotGoBelowZero extends BaseUITestCase {
 
         gamePage.buyFactories("1");
 
-        System.out.println();
         assertThat("Money total is less than 0",
                 gamePage.getMoneyAmount(),
                 Matchers.not(Matchers.lessThan(0.0)));

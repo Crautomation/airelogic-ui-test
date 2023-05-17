@@ -25,13 +25,14 @@ public class MainPage extends BasePageObject<MainPage> {
 
     public MainPage() {
         initElements();
-        openMainPage();
     }
 
     @Step("Opening the main page")
-    private void openMainPage() {
+    public MainPage openMainPage() {
         driver.get(URL);
         assertThat("Expected page title is not present", driver.getTitle(), equalTo("Cookie Clicker!"));
+
+        return this;
     }
 
     @Step("Entering the name {name}")

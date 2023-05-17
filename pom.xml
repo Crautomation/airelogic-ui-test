@@ -38,13 +38,12 @@
         </repository>
     </repositories>
 
-
     <dependencies>
         <!-- Core Framework -->
         <dependency>
             <groupId>com.github.Crautomation</groupId>
             <artifactId>crautomation-core</artifactId>
-            <version>9fc35645e4</version>
+            <version>3eabf983e4</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->

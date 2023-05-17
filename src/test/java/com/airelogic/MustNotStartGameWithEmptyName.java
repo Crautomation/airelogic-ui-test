@@ -19,7 +19,7 @@ public class MustNotStartGameWithEmptyName extends BaseUITestCase {
     @Test(groups = {TestGroups.AIRELOGIC}, description = "MustNotStartGameWithEmptyName")
     public void mustNotStartGameWithEmptyName() {
 
-        new MainPage().clickStartButton();
+        new MainPage().openMainPage().clickStartButton();
 
         validateCurrentPage();
     }

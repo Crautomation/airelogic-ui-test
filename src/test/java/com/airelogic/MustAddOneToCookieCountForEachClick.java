@@ -21,7 +21,7 @@ public class MustAddOneToCookieCountForEachClick extends BaseUITestCase {
     @Test(groups = {TestGroups.AIRELOGIC}, description = "MustAddOneToCookieCountForEachClick")
     public void mustAddOneToCookieCountForEachClick() {
 
-        gamePage = new MainPage().enterName().clickStartButton();
+        gamePage = new MainPage().openMainPage().enterName().clickStartButton();
 
         clickCookieButtonAndAssertCounter();
     }
@@ -38,8 +38,6 @@ public class MustAddOneToCookieCountForEachClick extends BaseUITestCase {
             assertThat("Cookie amount is incorrect",
                     gamePage.getCookieAmount(),
                     equalTo(i + 1));
-
-            System.out.println(gamePage.getCookieAmount());
         }
     }
 }
