@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.airelogic</groupId>
+    <artifactId>airelogic-ui-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>airlogic-ui-test</name>
+    <description>Small UI test codebase utilising the
+        crautomation-core framework for the Airelogic technical test</description>
+
+    <properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <threads>1</threads>
+        <groups />
+
+        <!-- Dependency Versions -->
+        <crautomation.core.version>1.1.0</crautomation.core.version>
+        <hamcrest.all.version>1.3</hamcrest.all.version>
+        <hamcrest.java.version>2.0.0.0</hamcrest.java.version>
+        <slf4j.version>2.0.0</slf4j.version>
+
+        <!-- Build Versions -->
+        <maven.compiler.version>3.8.0</maven.compiler.version>
+        <maven.surefire.version>3.0.0</maven.surefire.version>
+        <allure.maven.version>2.12.0</allure.maven.version>
+        <allure.testng.version>2.22.0</allure.testng.version>
+        <aspectj.version>1.9.19</aspectj.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+
+    <dependencies>
+        <!-- Core Framework -->
+        <dependency>
+            <groupId>com.github.Crautomation</groupId>
+            <artifactId>crautomation-core</artifactId>
+            <version>9fc35645e4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${hamcrest.all.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/java-hamcrest -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>java-hamcrest</artifactId>
+            <version>${hamcrest.java.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Compiles Code -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Overrides the basic Maven controls for running tests on a build to allow for unit tests -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.version}</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+
+                    <!-- Allure 2 -->
+                    <plugin>
+                        <groupId>io.qameta.allure</groupId>
+                        <artifactId>allure-maven</artifactId>
+                        <version>${allure.maven.version}</version>
+                        <configuration>
+                            <!-- Keep report version in sync with dependencies -->
+                            <reportVersion>${allure.testng.version}</reportVersion>
+                            <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- Runs TestNG Tests -->
+            <id>test</id>
+            <build>
+                <plugins>
+                    <!-- Runs TestNG Tests -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.version}</version>
+                        <configuration>
+                            <groups>${groups}</groups>
+                            <parallel>methods</parallel>
+                            <threadCount>${threads}</threadCount>
+                            <testFailureIgnore>false</testFailureIgnore>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <argLine>
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
+                            <properties>
+                                <property>
+                                    <name>usedefaultlisteners</name>
+                                    <value>false</value>
+                                </property>
+                            </properties>
+                        </configuration>
+
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.aspectj</groupId>
+                                <artifactId>aspectjweaver</artifactId>
+                                <version>${aspectj.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <reporting>
+        <!-- Allure 2 Reporting -->
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure.maven.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>
