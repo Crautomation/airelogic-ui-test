@@ -88,7 +88,6 @@ public class MainPage extends BasePageObject<MainPage> {
     @Step("Returning the name used for this session")
     public String getName() {
 
-        System.out.println(name);
         return name;
     }
 

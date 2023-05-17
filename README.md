@@ -51,7 +51,10 @@ To run all tests:
 
 ```mvn clean install -Ptest ```
 
-Once this has finished:
+This will run them in Chrome by default, however if you wish to run them in Firefox add the arg -Dbrowser=Firefox
+to your maven command.
+
+Once your tests have run you can find the reporting here:
 
 ```mvn allure:serve ```
 
